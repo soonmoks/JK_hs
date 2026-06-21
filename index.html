@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>진학 분석 시스템</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- 사이드바 -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+
+            <span class="material-icons">
+                school
+            </span>
+
+            <span>
+                JK_hs 진학 분석
+            </span>
+
+        </div>
+
+        <button class="active"
+                onclick="showPage('dashboard',this)">
+
+            <span class="material-icons">
+                dashboard
+            </span>
+
+            대시보드
+
+        </button>
+
+        <button onclick="showPage('college',this)">
+
+            <span class="material-icons">
+                school
+            </span>
+
+            대학 분석
+
+        </button>
+
+        <button onclick="showPage('major',this)">
+
+            <span class="material-icons">
+                menu_book
+            </span>
+
+            모집단위 분석
+
+        </button>
+
+        <button onclick="showPage('admission',this)">
+
+            <span class="material-icons">
+                description
+            </span>
+
+            전형 분석
+
+        </button>
+
+        <button onclick="showPage('region',this)">
+
+            <span class="material-icons">
+                public
+            </span>
+
+            지역 분석
+
+        </button>
+
+        <button onclick="showPage('studentCase',this)">
+
+            <span class="material-icons">
+                person
+            </span>
+
+            학생 사례 분석
+
+        </button>
+
+        <button onclick="showPage('prediction',this)">
+
+            <span class="material-icons">
+                track_changes
+            </span>
+
+            진학 가능성 분석
+
+        </button>
+
+        <button onclick="showPage('data',this)">
+
+            <span class="material-icons">
+                storage
+            </span>
+
+            데이터 관리
+
+        </button>
+
+    </div>
+
+    <!-- 메인 영역 -->
+
+    <div class="main">
+
+        <div class="filter-bar">
+
+            <select id="yearFilter">
+                <option>전체 학년도</option>
+            </select>
+
+            <select id="regionFilter">
+                <option>전체 지역</option>
+            </select>
+
+            <select id="periodFilter">
+                <option>전체 모집시기</option>
+            </select>
+
+            <select id="scoreFilter">
+
+                <option>전교과(100)</option>
+                <option>전교과(2/4/4)</option>
+                <option>전교과(4/3/3)</option>
+                <option>전교과(2/3/5)</option>
+
+                <option>국영수사/과(100)</option>
+                <option>국영수사/과(2/4/4)</option>
+                <option>국영수사/과(3/3/4)</option>
+                <option>국영수사/과(4/3/3)</option>
+
+                <option>국영수(100)</option>
+                <option>국영수사(100)</option>
+                <option>국영수과(100)</option>
+
+            </select>
+
+        </div>
+
+        <!-- 대시보드 -->
+
+        <div id="dashboard" class="page">
+
+            <h1>대시보드</h1>
+
+            <div class="card-container">
+
+                <div class="card">
+                    <h3>학생 수</h3>
+                    <span id="studentCount">0</span>
+                </div>
+
+                <div class="card">
+                    <h3>지원 건수</h3>
+                    <span id="applyCount">0</span>
+                </div>
+
+                <div class="card">
+                    <h3>합격 건수</h3>
+                    <span id="passCount">0</span>
+                </div>
+
+                <div class="card">
+                    <h3>불합격 건수</h3>
+                    <span id="failCount">0</span>
+                </div>
+
+                <div class="card">
+                    <h3>합격률</h3>
+                    <span id="passRate">0%</span>
+                </div>
+
+                <div class="card">
+                    <h3>대학 수</h3>
+                    <span id="collegeCount">0</span>
+                </div>
+
+                <div class="card">
+                    <h3>모집단위 수</h3>
+                    <span id="majorCount">0</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 대학 분석 -->
+
+        <div id="college"
+             class="page hidden">
+
+            <h1>대학 분석</h1>
+
+            <input
+                type="text"
+                id="collegeSearch"
+                class="search-box"
+                placeholder="대학명을 입력하세요">
+
+            <div id="collegeSuggestions"></div>
+
+            <div id="selectedCollegeTitle"
+                 style="margin-top:15px;
+                        font-size:28px;
+                        font-weight:700;
+                        color:#1a73e8;">
+            </div>
+
+            <br>
+
+  <h3 class="section-title">
+모집 현황
+</h3>
+
+<div class="card-container">
+
+    <div class="card">
+        <h3>지원 건수</h3>
+        <span id="collegeApplyCount">0</span>
+    </div>
+
+    <div class="card">
+        <h3>합격 건수</h3>
+        <span id="collegePassCount">0</span>
+    </div>
+
+    <div class="card">
+        <h3>불합격 건수</h3>
+        <span id="collegeFailCount">0</span>
+    </div>
+
+    <div class="card">
+        <h3>합격률</h3>
+        <span id="collegePassRate">0%</span>
+    </div>
+
+</div>
+
+<h3 class="section-title">
+성적 현황
+</h3>
+
+<div class="card-container">
+
+    <div class="card">
+        <h3>합격 평균 성적</h3>
+        <span id="avgPassScore">-</span>
+    </div>
+
+    <div class="card">
+        <h3>불합격 평균 성적</h3>
+        <span id="avgFailScore">-</span>
+    </div>
+
+    <div class="card">
+        <h3>최저 합격 성적</h3>
+        <span id="minPassScore">-</span>
+    </div>
+
+    <div class="card">
+        <h3>최고 불합격 성적</h3>
+        <span id="maxFailScore">-</span>
+    </div>
+
+</div>
+
+            <br><br>
+
+            <!-- 탭 -->
+
+            <div class="tab-area">
+
+ <button id="tabStat"
+        class="tab-button active-tab">
+    통계
+</button>
+
+<button id="tabPass"
+        class="tab-button">
+    합격자
+</button>
+
+<button id="tabFail"
+        class="tab-button">
+    불합격자
+</button>
+
+<button id="tabMajorDetail"
+        class="tab-button">
+    모집단위 상세분석
+</button>
+
+
+            </div>
+
+            <!-- 통계 -->
+
+            <div id="tabStatContent">
+
+                <h2>모집단위 현황</h2>
+
+                <table id="majorTable">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>대학명</th>
+                            <th>모집단위</th>
+                            <th>지원</th>
+                            <th>합격</th>
+                            <th>불합격</th>
+                            <th>합격률</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="majorTableBody">
+
+                    </tbody>
+
+                    </table>
+
+<br><br>
+
+</div>
+
+<div id="tabMajorDetailContent"
+     style="display:none;">
+
+<div id="majorDetailArea"
+     class="major-section"
+     style="display:none;">
+
+<h2>
+    모집단위 상세분석
+</h2>
+
+    <h2 id="majorDetailTitle">
+</h2>
+
+<br>
+
+<div class="card-container">
+
+<div class="card">
+    <h3>지원건수</h3>
+    <span id="majorApplyCount">0</span>
+</div>
+
+<div class="card">
+
+    <h3>합격건수</h3>
+    <span id="majorPassCount">0</span>
+</div>
+
+<div class="card">
+    <h3>불합격건수</h3>
+    <span id="majorFailCount">0</span>
+</div>
+
+<div class="card">
+    <h3>합격률</h3>
+    <span id="majorPassRate">0%</span>
+</div>
+
+<div class="card">
+    <h3>합격평균</h3>
+    <span id="majorAvgPass">-</span>
+</div>
+
+<div class="card">
+    <h3>불합격평균</h3>
+    <span id="majorAvgFail">-</span>
+</div>
+
+<div class="card">
+    <h3>실질합격선</h3>
+    <span id="majorCutLine">-</span>
+</div>
+
+<div class="card">
+    <h3>실질불합격선</h3>
+    <span id="majorFailLine">-</span>
+</div>
+
+</div>
+
+    
+</div>
+
+    <br>
+
+
+<br>
+
+<h3>진학 가능성 분석</h3>
+
+<br>
+
+<input
+    type="number"
+    step="0.01"
+    id="myScoreInput"
+    class="search-box"
+    placeholder="학생 성적 입력">
+
+<button
+    id="predictBtn"
+    class="tab-button">
+
+    분석
+
+</button>
+
+<br><br>
+
+<div id="predictResult">
+
+</div>
+
+
+<div class="analysis-row">
+
+    <!-- 내 성적 위치 -->
+
+    <div id="scorePositionArea"
+         class="score-panel hidden">
+
+        <h2 class="section-title">
+            내 성적 위치
+        </h2>
+
+        <div class="position-wrapper">
+
+            
+            <div class="position-scale">
+
+    <div id="minePosition" class="position-marker">
+        <div class="position-dot mine-dot"></div>
+        <div class="position-label-box mine-label">
+
+    <div class="position-line"></div>
+
+    내 성적
+    <span id="mineScoreText"></span>
+
+</div>
+    </div>
+
+    <div id="passPosition" class="position-marker">
+        <div class="position-dot pass-dot"></div>
+        <div class="position-label-box pass-label">
+
+    <div class="position-line"></div>
+
+    합격평균
+    <span id="passScoreText"></span>
+
+</div>
+    </div>
+
+    <div id="cutPosition" class="position-marker">
+        <div class="position-dot cut-dot"></div>
+        <div class="position-label-box cut-label">
+
+    <div class="position-line"></div>
+
+    최저합격선
+    <span id="cutScoreText"></span>
+
+</div>
+    </div>
+
+    <div id="failPosition" class="position-marker">
+        <div class="position-dot fail-dot"></div>
+        <div class="position-label-box fail-label">
+
+    <div class="position-line"></div>
+
+    불합격평균
+    <span id="failScoreText"></span>
+
+</div>
+    </div>
+
+</div>
+
+            <div class="position-summary">
+
+                <div class="card">
+
+                    <h3>합격예측</h3>
+
+                    <span id="positionPredict">
+                        -
+                    </span>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>상대위치</h3>
+
+                    <span id="positionRank">
+                        -
+                    </span>
+
+                </div>
+
+                <div class="card">
+
+                    <h3>판정</h3>
+
+                    <span id="positionResult">
+                        -
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- 추천 대학 -->
+
+    <div id="recommendArea"
+         class="recommend-panel hidden">
+
+        <h2 class="section-title">
+            추천 대학
+        </h2>
+
+        <div id="safeList"></div>
+
+        <div id="stableList"></div>
+
+        <div id="normalList"></div>
+
+        <div id="challengeList"></div>
+
+    </div>
+
+</div>
+
+<div class="similar-section">
+
+    <h3>유사 선배 TOP10</h3>
+
+    <div class="similar-filter">
+
+        <button
+        id="similarAllBtn"
+        class="similar-btn active"
+        onclick="changeSimilarFilter('all')">
+
+        전체
+
+        </button>
+
+        <button
+        id="similarPassBtn"
+        class="similar-btn"
+        onclick="changeSimilarFilter('pass')">
+
+        합격자
+
+        </button>
+
+        <button
+        id="similarFailBtn"
+        class="similar-btn"
+        onclick="changeSimilarFilter('fail')">
+
+        불합격자
+
+        </button>
+
+    </div>
+
+</div>
+
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>학생</th>
+            <th>성적</th>
+            <th>결과</th>
+            <th>지원건수</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody id="similarStudentBody">
+
+    </tbody>
+
+</table>
+
+<hr style="margin:20px 0;">
+
+<br>
+
+
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>학년도</th>
+                <th>지원</th>
+                <th>합격</th>
+                <th>합격률</th>
+                <th>실질합격선</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="majorTrendBody">
+
+</tbody>
+
+</table>
+
+<br><br>
+
+<h3>
+현재 대학 모집단위 비교
+</h3>
+
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>모집단위</th>
+            <th>지원</th>
+            <th>합격</th>
+            <th>합격률</th>
+            <th>실질합격선</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody id="majorCompareBody">
+
+    </tbody>
+
+</table>
+
+</div>
+
+
+
+
+            </div>
+
+            <!-- 합격자 -->
+
+            <div id="tabPassContent"
+                 style="display:none;">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+    <th>이름</th>
+    <th>학년도</th>
+    <th>모집단위</th>
+    <th>전형명</th>
+    <th>성적</th>
+</tr>
+
+                    </thead>
+
+                    <tbody id="passStudentBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <!-- 불합격자 -->
+
+            <div id="tabFailContent"
+                 style="display:none;">
+
+                <table>
+
+                    <thead>
+
+                       <tr>
+    <th>이름</th>
+    <th>학년도</th>
+    <th>모집단위</th>
+    <th>전형명</th>
+    <th>성적</th>
+</tr>
+
+                    </thead>
+
+                    <tbody id="failStudentBody">
+
+                    </tbody>
+
+                </table>
+
+        </div>
+
+        <!-- 모집단위 분석 -->
+
+        <div id="major"
+     class="page hidden">
+
+    <h1>
+        모집단위 분석
+    </h1>
+
+    <input
+        type="text"
+        id="majorSearchInput"
+        class="search-box"
+        placeholder="모집단위를 입력하세요">
+        <button
+            id="majorSearchBtn"
+            class="tab-button">
+
+            검색
+
+        </button>
+
+    <div id="majorSuggestions">
+
+    </div>
+
+    <div id="selectedMajorTitle"
+         style="
+            margin-top:15px;
+            font-size:28px;
+            font-weight:700;
+            color:#1a73e8;
+         ">
+    </div>
+
+<br>
+
+<div id="majorAnalysisArea"
+     style="display:none;">
+
+    <div class="card-container">
+
+        <div class="card">
+            <h3>지원건수</h3>
+            <span id="majorTotalApply">0</span>
+        </div>
+
+        <div class="card">
+            <h3>합격건수</h3>
+            <span id="majorTotalPass">0</span>
+        </div>
+
+        <div class="card">
+            <h3>불합격건수</h3>
+            <span id="majorTotalFail">0</span>
+        </div>
+
+        <div class="card">
+            <h3>합격률</h3>
+            <span id="majorTotalRate">0%</span>
+        </div>
+
+        <div class="card">
+            <h3>참여대학수</h3>
+            <span id="majorCollegeCount">0</span>
+        </div>
+
+        <div class="card">
+            <h3>최근학년도</h3>
+            <span id="majorRecentYear">-</span>
+        </div>
+
+        <div class="card">
+          <h3>합격평균성적</h3>
+            <span id="majorAvgPassScore">-</span>
+        </div>
+
+        <div class="card">
+            <h3>불합격평균성적</h3>
+            <span id="majorAvgFailScore">-</span>
+        </div>
+
+        <div class="card">
+            <h3>최저합격성적</h3>
+            <span id="majorMinPassScore">-</span>
+        </div>
+
+        <div class="card">
+            <h3>최고불합격성적</h3>
+            <span id="majorMaxFailScore">-</span>
+        </div>
+
+    </div>
+
+    <br><br>
+
+    <h3 class="section-title">
+        대학별 현황
+    </h3>
+
+        <select id="majorSortType"
+        class="search-box"
+        style="max-width:250px; margin-bottom:15px;">
+
+        <option value="college">
+        대학명순
+        </option>
+
+        <option value="rate">
+        합격률 높은 순
+        </option>
+
+        <option value="apply">
+        지원건수 많은 순
+        </option>
+
+        <option value="pass">
+        합격건수 많은 순
+        </option>
+
+    </select>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>대학명</th>
+<th>모집단위</th>
+<th>지원</th>
+<th>합격</th>
+<th>불합격</th>
+<th>합격률</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="majorCollegeBody">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</div>
+
+        <!-- 전형 분석 -->
+
+        <div id="admission"
+     class="page hidden">
+
+    <h1>
+        전형 분석
+    </h1>
+
+    <div style="
+        display:flex;
+        gap:12px;
+        margin-bottom:20px;
+        flex-wrap:wrap;
+    ">
+
+        <select id="admissionTypeFilter"
+                class="search-box"
+                style="max-width:300px;">
+
+            <option value="">
+                전체 전형유형
+            </option>
+
+        </select>
+
+        <select id="detailTypeFilter"
+        class="search-box"
+        style="max-width:350px;">
+
+            <option value="">
+                전체 세부유형
+            </option>
+
+        </select>
+
+        <input
+    type="text"
+    id="detailKeyword"
+    class="search-box"
+    placeholder="세부유형 검색">
+
+    <select id="admissionCollegeFilter"
+        class="search-box"
+        style="max-width:260px;">
+
+    <option value="">
+        전체 대학
+    </option>
+
+</select>
+
+<button
+    id="admissionSearchBtn"
+    class="search-btn"
+    onclick="analyzeAdmission()">
+
+    🔍 검색
+
+</button>
+
+    </div>
+
+    <div id="selectedAdmissionTitle"
+         style="
+            font-size:28px;
+            font-weight:700;
+            color:#1a73e8;
+            margin-bottom:20px;
+         ">
+    </div>
+
+    <div id="admissionAnalysisArea"
+         style="display:none;">
+
+        <div class="card-container">
+
+            <div class="card">
+                <h3>지원건수</h3>
+                <span id="admissionApplyCount">0</span>
+            </div>
+
+            <div class="card">
+                <h3>합격건수</h3>
+                <span id="admissionPassCount">0</span>
+            </div>
+
+            <div class="card">
+                <h3>불합격건수</h3>
+                <span id="admissionFailCount">0</span>
+            </div>
+
+            <div class="card">
+                <h3>합격률</h3>
+                <span id="admissionPassRate">0%</span>
+            </div>
+
+            <div class="card">
+                <h3>참여대학수</h3>
+                <span id="admissionCollegeCount">0</span>
+            </div>
+
+            <div class="card">
+                <h3>참여모집단위수</h3>
+                <span id="admissionMajorCount">0</span>
+            </div>
+
+            <div class="card">
+                <h3>합격평균성적</h3>
+                <span id="admissionAvgPass">-</span>
+            </div>
+
+            <div class="card">
+                <h3>불합격평균성적</h3>
+                <span id="admissionAvgFail">-</span>
+            </div>
+
+            <div class="card">
+                <h3>최저합격성적</h3>
+                <span id="admissionMinPass">-</span>
+            </div>
+
+            <div class="card">
+                <h3>최고불합격성적</h3>
+                <span id="admissionMaxFail">-</span>
+            </div>
+
+        </div>
+
+        <br><br>
+
+        <h3 class="section-title">
+            대학별 현황
+        </h3>
+
+        <select id="admissionSort"
+        class="search-box"
+        style="
+            max-width:220px;
+            margin-bottom:15px;
+        ">
+
+    <option value="college">
+        대학명순
+    </option>
+
+    <option value="apply">
+        지원건수 많은 순
+    </option>
+
+    <option value="pass">
+        합격건수 많은 순
+    </option>
+
+    <option value="rate">
+        합격률 높은 순
+    </option>
+
+</select>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                   <th>대학명</th>
+<th>모집단위</th>
+<th>세부유형</th>
+<th>지원</th>
+<th>합격</th>
+<th>불합격</th>
+<th>합격률</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="admissionTableBody">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+        <!-- 지역 분석 -->
+
+        <div id="region"
+     class="page hidden">
+
+    <h1>
+        지역 분석
+    </h1>
+
+    <select id="regionAnalysisFilter"
+            class="search-box"
+            style="max-width:250px;">
+
+        <option value="">
+            전체 지역
+        </option>
+
+    </select>
+
+    <br><br>
+
+    <div id="selectedRegionTitle"
+         style="
+            font-size:28px;
+            font-weight:700;
+            color:#1a73e8;
+         ">
+    </div>
+
+    <br>
+
+    <div id="regionAnalysisArea">
+
+        <div class="card-container">
+
+            <div class="card">
+                <h3>지원건수</h3>
+                <span id="regionApplyCount">0</span>
+            </div>
+
+            <div class="card">
+                <h3>합격건수</h3>
+                <span id="regionPassCount">0</span>
+            </div>
+
+            <div class="card">
+                <h3>불합격건수</h3>
+                <span id="regionFailCount">0</span>
+            </div>
+
+            <div class="card">
+                <h3>합격률</h3>
+                <span id="regionPassRate">0%</span>
+            </div>
+
+            <div class="card">
+                <h3>합격평균성적</h3>
+                <span id="regionAvgPass">-</span>
+            </div>
+
+            <div class="card">
+                <h3>불합격평균성적</h3>
+                <span id="regionAvgFail">-</span>
+            </div>
+
+        </div>
+
+        <br><br>
+
+        <h3>
+            지역별 대학 현황
+        </h3>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>대학명</th>
+                    <th>지원</th>
+                    <th>합격</th>
+                    <th>불합격</th>
+                    <th>합격률</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="regionCollegeBody">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+        <!-- 학생 사례 분석 -->
+
+        <div id="studentCase" class="page hidden">
+            <h1>학생 사례 분석</h1>
+        </div>
+
+        <!-- 진학 가능성 분석 -->
+
+        <div id="prediction" class="page hidden">
+            <h1>진학 가능성 분석</h1>
+        </div>
+
+        <!-- 데이터 관리 -->
+
+        <div id="data" class="page hidden">
+
+            <h1>데이터 관리</h1>
+
+            <input type="file"
+                   id="excelFile"
+                   accept=".xlsx,.xls">
+
+            <br><br>
+
+            <div id="uploadInfo">
+
+                아직 파일이 업로드되지 않았습니다.
+
+            </div>
+
+        </div>
+
+    </div>
+
+<!-- 학생 상세 팝업 -->
+
+<div id="studentModal"
+     class="modal"
+     style="display:none;">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2 id="studentModalTitle">
+                학생 정보
+            </h2>
+
+            <button id="closeModalBtn">
+                ✕
+            </button>
+
+        </div>
+
+        <div id="studentSummary">
+
+        </div>
+
+        <br>
+
+        <h3>지원 이력</h3>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>대학명</th>
+                    <th>모집단위</th>
+                    <th>전형명</th>
+                    <th>결과</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="studentHistoryBody">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
+

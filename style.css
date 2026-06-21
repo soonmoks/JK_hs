@@ -1,0 +1,1358 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI','맑은 고딕',sans-serif;
+    background:#f8f9fa;
+    color:#202124;
+}
+
+.container{
+    display:flex;
+    height:100vh;
+}
+
+/* =========================
+   사이드바
+========================= */
+
+.sidebar{
+    width:300px;
+    background:white;
+    border-right:1px solid #dadce0;
+    padding:20px;
+    overflow-y:auto;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:28px;
+    font-weight:700;
+    color:#1a73e8;
+    margin-bottom:30px;
+    white-space:nowrap;
+}
+
+.logo .material-icons{
+    font-size:34px;
+}
+
+/* =========================
+   메뉴
+========================= */
+
+.sidebar button{
+
+    width:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:14px 16px;
+
+    border:none;
+
+    background:white;
+
+    color:#3c4043;
+
+    font-size:15px;
+
+    font-weight:500;
+
+    text-align:left;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    transition:0.2s;
+
+    margin-bottom:5px;
+
+    position:relative;
+}
+
+.sidebar button:hover{
+    background:#f1f3f4;
+}
+
+.sidebar button.active{
+    background:#e8f0fe;
+    color:#1a73e8;
+    font-weight:600;
+}
+
+.sidebar button.active::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:8px;
+
+    bottom:8px;
+
+    width:4px;
+
+    background:#1a73e8;
+
+    border-radius:10px;
+}
+
+.sidebar button .material-icons{
+    font-size:20px;
+}
+
+/* =========================
+   메인
+========================= */
+
+.main{
+    flex:1;
+    padding:24px;
+    overflow-y:auto;
+}
+
+/* =========================
+   필터
+========================= */
+
+.filter-bar{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:24px;
+}
+
+.filter-bar select{
+
+    min-width:170px;
+
+    height:42px;
+
+    border:1px solid #dadce0;
+
+    border-radius:8px;
+
+    background:white;
+
+    padding:0 12px;
+
+    font-size:14px;
+}
+
+.filter-bar select:focus{
+    outline:none;
+    border-color:#1a73e8;
+}
+
+/* =========================
+   페이지
+========================= */
+
+.page{
+    background:white;
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.08);
+}
+
+.hidden{
+    display:none;
+}
+
+.page h1{
+    font-size:36px;
+    margin-bottom:25px;
+    color:#202124;
+}
+
+/* =========================
+   카드
+========================= */
+
+.card-container{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+}
+
+.card{
+
+    background:white;
+
+    border:1px solid #e8eaed;
+
+    border-radius:16px;
+
+    padding:24px;
+
+    min-height:120px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    box-shadow:
+    0 2px 6px rgba(0,0,0,0.05);
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 6px 15px rgba(0,0,0,0.12);
+}
+
+.card h3{
+    font-size:15px;
+    color:#5f6368;
+    margin-bottom:18px;
+}
+
+.card span{
+    font-size:34px;
+    font-weight:700;
+    color:#1a73e8;
+}
+
+/* =========================
+   검색창
+========================= */
+
+.search-box{
+
+    width:500px;
+
+    max-width:100%;
+
+    height:46px;
+
+    border:1px solid #dadce0;
+
+    border-radius:10px;
+
+    padding:0 15px;
+
+    font-size:15px;
+
+    margin-bottom:10px;
+}
+
+.search-btn{
+
+    height:44px;
+
+    padding:0 18px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#4285f4;
+
+    color:white;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
+}
+
+.search-btn:hover{
+
+    background:#3367d6;
+
+}
+
+.search-box:focus{
+
+    outline:none;
+
+    border-color:#1a73e8;
+
+    box-shadow:0 0 0 3px rgba(26,115,232,0.15);
+}
+
+/* =========================
+   자동완성
+========================= */
+
+#collegeSuggestions{
+
+    width:500px;
+
+    max-width:100%;
+
+    background:white;
+
+    border:1px solid #dadce0;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    margin-bottom:20px;
+}
+
+.suggestion-item{
+
+    padding:12px 15px;
+
+    cursor:pointer;
+
+    border-bottom:1px solid #f1f3f4;
+}
+
+.suggestion-item:hover{
+    background:#f8f9fa;
+}
+
+.suggestion-item:last-child{
+    border-bottom:none;
+}
+
+/* =========================
+   선택 대학 제목
+========================= */
+
+#selectedCollegeTitle{
+
+    padding:12px 0;
+
+    border-bottom:2px solid #e8f0fe;
+
+    margin-bottom:20px;
+}
+
+/* =========================
+   탭
+========================= */
+
+.tab-area{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:20px;
+}
+
+.tab-button{
+
+    border:none;
+
+    background:#f1f3f4;
+
+    color:#3c4043;
+
+    padding:10px 18px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    transition:0.2s;
+}
+
+.tab-button:hover{
+
+    background:#e8eaed;
+}
+
+.active-tab{
+
+    background:#1a73e8;
+
+    color:white;
+}
+
+/* =========================
+   테이블
+========================= */
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:15px;
+}
+
+thead{
+
+    background:#f8f9fa;
+}
+
+th{
+
+    padding:12px;
+
+    text-align:left;
+
+    border-bottom:2px solid #dadce0;
+
+    font-weight:600;
+}
+
+td{
+
+    padding:12px;
+
+    border-bottom:1px solid #ececec;
+}
+
+tbody tr:hover{
+
+    background:#f8f9fa;
+}
+
+/* 학생목록 */
+
+.student-row{
+
+    cursor:pointer;
+
+    transition:0.15s;
+}
+
+.student-row:hover{
+
+    background:#e8f0fe !important;
+}
+
+/* =========================
+   파일
+========================= */
+
+input[type="file"]{
+    padding:10px;
+}
+
+/* =========================
+   스크롤
+========================= */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#c7c7c7;
+    border-radius:10px;
+}
+
+/* =========================
+   반응형
+========================= */
+
+@media(max-width:1000px){
+
+    .sidebar{
+        width:240px;
+    }
+
+    .card{
+        width:100%;
+    }
+
+    .search-box{
+        width:100%;
+    }
+
+    #collegeSuggestions{
+        width:100%;
+    }
+}
+
+/* =========================
+   학생 상세 팝업
+========================= */
+
+.modal{
+
+    position:fixed;
+
+    left:0;
+    top:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,0.45);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:9999;
+}
+
+.modal-content{
+
+    width:1100px;
+
+    max-width:95%;
+
+    max-height:90vh;
+
+    overflow:auto;
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:24px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+}
+
+.modal-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+}
+
+.modal-header h2{
+
+    color:#1a73e8;
+
+    font-size:28px;
+}
+
+#closeModalBtn{
+
+    border:none;
+
+    background:#f1f3f4;
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    font-size:18px;
+}
+
+#closeModalBtn:hover{
+
+    background:#e0e0e0;
+}
+
+#studentSummary{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(200px,1fr));
+
+    gap:15px;
+
+    margin-bottom:20px;
+}
+
+.summary-card{
+
+    background:#f8f9fa;
+
+    border:1px solid #e8eaed;
+
+    border-radius:12px;
+
+    padding:15px;
+}
+
+.summary-title{
+
+    color:#5f6368;
+
+    font-size:13px;
+
+    margin-bottom:8px;
+}
+
+.summary-value{
+
+    color:#1a73e8;
+
+    font-size:22px;
+
+    font-weight:700;
+}
+
+.predict-card{
+
+    min-width:340px !important;
+}
+
+.predict-card span{
+
+    white-space:nowrap;
+    display:inline-block;
+}
+
+/* =========================
+   모집단위 상세분석 카드
+========================= */
+
+.major-section{
+
+    margin-top:50px;
+
+    padding:30px;
+
+    background:#ffffff;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.06);
+
+    border:1px solid #e8eaed;
+}
+
+.major-section h2{
+
+    margin-bottom:20px;
+
+    color:#1a73e8;
+
+    font-size:28px;
+}
+
+#majorDetailTitle{
+
+    font-size:22px;
+
+    color:#5f6368;
+
+    margin-bottom:25px;
+}
+
+.similar-section{
+
+    margin-top:60px;
+
+    padding:25px;
+
+    background:#f8f9fa;
+
+    border-radius:16px;
+}
+
+.diff-good{
+
+    color:#16a34a;
+
+    font-weight:600;
+}
+
+.diff-bad{
+
+    color:#dc2626;
+
+    font-weight:600;
+}
+
+.result-pass{
+
+    color:#2563eb;
+
+    font-weight:700;
+}
+
+.result-fail{
+
+    color:#dc2626;
+
+    font-weight:700;
+}
+
+.section-title{
+
+    margin-top:25px;
+
+    margin-bottom:15px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#202124;
+
+    padding-bottom:8px;
+
+    border-bottom:2px solid #e8eaed;
+}
+
+.stat-card{
+
+    background:#fff;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.08);
+
+    transition:0.2s;
+}
+
+.stat-card:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,0.12);
+}
+
+.result-pass{
+
+    background:#e8f0fe;
+
+    color:#1a73e8;
+
+    padding:4px 12px;
+
+    border-radius:20px;
+
+    display:inline-block;
+
+    font-weight:700;
+}
+
+.result-fail{
+
+    background:#fde8e8;
+
+    color:#dc2626;
+
+    padding:4px 12px;
+
+    border-radius:20px;
+
+    display:inline-block;
+
+    font-weight:700;
+}
+
+.position-label{
+
+    position:absolute;
+
+    left:110px;
+}
+
+.position-label span{
+
+    font-size:32px;
+
+    font-weight:700;
+}
+
+.position-label small{
+
+    display:block;
+
+    color:#5f6368;
+}
+
+.cut{
+    color:#7c3aed;
+}
+
+.position-summary{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+}
+
+.recommend-group{
+
+    margin-bottom:25px;
+
+    padding:20px;
+
+    background:#f8f9fa;
+
+    border-radius:16px;
+
+    border-left:6px solid #1a73e8;
+}
+
+.recommend-group h3{
+
+    margin-bottom:12px;
+}
+
+.recommend-item{
+
+    display:inline-block;
+
+    padding:10px 16px;
+
+    margin:8px;
+
+    border-radius:24px;
+
+    background:white;
+
+    border:1px solid #dadce0;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.2s;
+}
+
+.recommend-item:hover{
+
+    background:#e8f0fe;
+}
+
+.position-dot{
+
+    width:14px;
+    height:14px;
+
+    border-radius:50%;
+}
+
+.mine-dot{
+    background:#2563eb;
+}
+
+.pass-dot{
+    background:#16a34a;
+}
+
+.cut-dot{
+    background:#7c3aed;
+}
+
+.fail-dot{
+    background:#dc2626;
+}
+
+.position-text{
+
+    margin-left:10px;
+
+    white-space:nowrap;
+
+    font-weight:600;
+}
+
+#minePosition .position-text{
+
+    margin-left:140px;
+}
+
+#passPosition .position-text{
+
+    margin-left:100px;
+}
+
+#cutPosition .position-text{
+
+    margin-left:60px;
+}
+
+#failPosition .position-text{
+
+    margin-left:180px;
+}
+
+.analysis-row{
+
+    display:grid;
+
+    grid-template-columns:
+    38% 62%;
+
+    gap:30px;
+
+    margin-top:25px;
+}
+
+.score-panel,
+.recommend-panel{
+
+    background:white;
+
+    border:1px solid #e8eaed;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.08);
+
+    display:flex;
+
+    flex-direction:column;
+}
+
+.recommend-panel{
+
+    min-height:650px;
+}
+
+.recommend-group:first-child{
+
+    margin-top:10px;
+}
+
+.recommend-group{
+
+    margin-bottom:20px;
+
+    padding:20px;
+
+    border-radius:16px;
+
+    background:#fafafa;
+
+    border-left:5px solid #1a73e8;
+}
+
+.recommend-item{
+
+    display:inline-block;
+
+    padding:10px 16px;
+
+    margin:6px;
+
+    border-radius:20px;
+
+    background:white;
+
+    border:1px solid #dadce0;
+
+    font-size:14px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.recommend-major{
+
+    background:white;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:12px;
+
+    padding:12px;
+
+    margin:8px;
+
+    display:inline-block;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.recommend-major:hover{
+
+    background:#e8f0fe;
+}
+
+.recommend-college{
+
+    color:#1a73e8;
+
+    font-weight:700;
+
+    font-size:14px;
+}
+
+.recommend-major-name{
+
+    margin-top:4px;
+
+    font-size:13px;
+}
+
+.position-marker{
+
+    position:absolute;
+
+    left:74px;
+}
+
+.position-wrapper{
+
+    display:grid;
+
+    grid-template-columns:
+    480px 180px;
+
+    gap:40px;
+
+    align-items:flex-start;
+}
+
+.position-scale{
+
+    position:relative;
+
+    width:12px;
+
+    height:420px;
+
+    margin-left:40px;
+
+    background:
+    linear-gradient(
+        to bottom,
+        #66c266,
+        #e6d64f,
+        #d9534f
+    );
+
+    border-radius:20px;
+}
+
+.position-marker{
+
+    position:absolute;
+
+    left:40px;
+}
+
+.position-dot{
+
+    width:12px;
+    height:12px;
+
+    border-radius:50%;
+
+    position:absolute;
+}
+
+.mine-dot{
+    background:#2563eb;
+}
+
+.pass-dot{
+    background:#16a34a;
+}
+
+.cut-dot{
+    background:#7c3aed;
+}
+
+.fail-dot{
+    background:#dc2626;
+}
+
+.position-label-box{
+
+    position:absolute;
+
+    left:180px;
+
+    width:220px;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    white-space:nowrap;
+}
+
+
+.position-line{
+
+    position:absolute;
+
+    left:-140px;
+
+    top:50%;
+
+    height:2px;
+
+    border-top:2px dashed currentColor;
+
+    transform-origin:right center;
+}
+
+/* 글자 위치 */
+
+.mine-label{
+    color:#2563eb;
+}
+
+.pass-label{
+    color:#16a34a;
+}
+
+.cut-label{
+    color:#7c3aed;
+}
+
+.fail-label{
+    color:#dc2626;
+}
+
+
+/* =========================
+   성적위치 결과 카드
+========================= */
+
+.position-summary{
+
+    width:220px;
+}
+
+.position-summary .card{
+
+    min-height:100px;
+
+    padding:18px;
+}
+
+.position-summary .card h3{
+
+    font-size:14px;
+
+    margin-bottom:10px;
+}
+
+#positionPredict{
+
+    font-size:22px !important;
+
+    font-weight:700;
+
+    white-space:nowrap;
+
+    line-height:1.2;
+}
+
+#positionRank{
+
+    font-size:22px !important;
+
+    font-weight:700;
+
+    white-space:nowrap;
+
+    line-height:1.2;
+}
+
+#positionResult{
+
+    font-size:20px !important;
+
+    font-weight:700;
+
+    white-space:nowrap;
+
+    line-height:1.2;
+
+    letter-spacing:-0.5px;
+}
+
+.position-line{
+
+    position:absolute;
+
+    left:-140px;
+
+    top:50%;
+
+    height:2px;
+
+    border-top:2px dashed currentColor;
+
+    transform-origin:right center;
+
+    pointer-events:none;
+}
+
+.similar-filter{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:15px;
+
+    margin-bottom:25px;
+
+    align-items:center;
+}
+
+.similar-btn{
+
+    border:none;
+
+    padding:12px 22px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#e5e7eb;
+
+    font-weight:600;
+
+    font-size:14px;
+
+    line-height:1.4;
+
+    transition:all 0.2s;
+}
+
+.similar-btn:hover{
+
+    transform:translateY(-1px);
+}
+
+.similar-btn.active{
+
+    background:#4f6df5;
+
+    color:white;
+}
+
+.similar-btn.active{
+
+    background:#2563eb;
+
+    color:white;
+}
+
+.recommend-extra{
+
+font-size:12px;
+
+margin-top:4px;
+
+color:#5f6368;
+
+}
+
+.diff-good{
+
+color:#0f9d58;
+
+font-weight:600;
+
+}
+
+.diff-bad{
+
+color:#d93025;
+
+font-weight:600;
+
+}
+
+/* 모집단위 자동완성 */
+
+#majorSuggestions{
+
+    width:100%;
+
+    max-width:600px;
+
+    background:white;
+
+    border:1px solid #e5e7eb;
+
+    border-top:none;
+
+    border-radius:0 0 10px 10px;
+
+    overflow:hidden;
+
+    display:none;
+
+    margin-top:-2px;
+}
+
+.major-suggestion-item{
+
+    padding:12px 15px;
+
+    cursor:pointer;
+
+    border-bottom:1px solid #f3f4f6;
+
+}
+
+.major-suggestion-item:hover{
+
+    background:#f8fafc;
+}
+
+#major{
+
+    width:100%;
+
+}
+
+#majorAnalysisArea{
+
+    width:100%;
+
+}
+
+#major .card-container{
+
+    margin-top:20px;
+}
+
